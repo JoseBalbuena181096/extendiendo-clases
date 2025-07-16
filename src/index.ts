@@ -1,4 +1,5 @@
 import products from "./products.json";
+import * as fs from "fs";
 
 class ListaDeCosas {
   name: string;
@@ -31,7 +32,11 @@ class ListaDeProductos extends ListaDeCosas {
     super(name);
     // Lógica adicional para leer products.json y agregar productos usando addProduct
     // ...
-    products.forEach((product) => {
+    const productsJson = fs
+      .readFileSync(__dirname + "/products.json")
+      .toString();
+    const productsDelArchivo = JSON.parse(productsJson);
+    productsDelArchivo.forEach((product) => {
       this.addProduct(product);
     });
     // Ejemplo de cómo se puede invocar addProduct para agregar un producto
