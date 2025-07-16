@@ -1,6 +1,8 @@
+import products from "./products.json";
+
 class ListaDeCosas {
   name: string;
-  cosas: any[] = [];
+  cosas: Product[] = [];
   constructor(name: string) {
     // nombre de esta lista
     this.name = name;
@@ -24,6 +26,38 @@ class Product {
   }
 }
 
-class ListaDeProductos extends ListaDeCosas {}
+class ListaDeProductos extends ListaDeCosas {
+  constructor(name: string) {
+    super(name);
+    // Lógica adicional para leer products.json y agregar productos usando addProduct
+    // ...
+    products.forEach((product) => {
+      this.addProduct(product);
+    });
+    // Ejemplo de cómo se puede invocar addProduct para agregar un producto
+    // this.addProduct(new Product(/* parámetros del producto */));
+  }
+  addProduct(product: Product) {
+    this.add(product);
+  }
+
+  getProduct(id: number): Product {
+    // Implementación del método getProduct
+    // ...
+    return this.cosas.find((product) => product.id === id);
+  }
+
+  removeProduct(id: number): void {
+    // Implementación del método removeProduct
+    // ...
+    this.cosas = this.cosas.filter((product) => product.id !== id);
+  }
+
+  getSortedByPrice(order: string): Product[] {
+    // Implementación del método getSortedByPrice
+    // ...
+    return this.cosas.sort((a, b) => b.price - a.price);
+  }
+}
 
 export { ListaDeProductos, Product };
